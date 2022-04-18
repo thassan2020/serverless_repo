@@ -1,4 +1,4 @@
-service: iot-serverless
+service: iot-serverless-tarek-1
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -9,7 +9,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
-  region: ap-northeast-1
+  region: us-east-1
 
 iamRoleStatements:
   - Effect: "Allow"
