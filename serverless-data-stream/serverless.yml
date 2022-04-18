@@ -1,4 +1,4 @@
-service: iot-serverless-tarek-1
+service: iot-serverless-tarek-2
 
 custom:
   stage: ${opt:stage, self:provider.stage}
