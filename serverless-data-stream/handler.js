@@ -1,18 +1,22 @@
-'use strict';
+import time
+import boto3
 
-module.exports.transform = async (event) => {
-  console.log(JSON.stringify(event));
-  let records = [];
-  for(let i = 0; i<event.records.length; i++) {
-      let payload = new Buffer(event.records[i].data, 'base64').toString('ascii');
-      console.log(`PAYLOAD: ${ JSON.stringify({payload}) }`)
-      payload = JSON.parse(payload);
-      payload.decoded = true;
-      records.push({
-        recordId: event.records[i].recordId,
-        result: 'Ok',
-        data: Buffer.from(JSON.stringify(payload)).toString('base64')});
-  }
-  console.log(`Return: ${ JSON.stringify({records}) }`)
-  return Promise.resolve({records});
-};
+query = 'select state.reported.uptime, state.reported.temperature, state.reported.humidity, state.reported.message from shadowevents'
+DATABASE = 'shadoweventsdb'
+output='s3://shadowprocessedzone/'
+
+def lambda_handler(event, context):
+    query = "select state.reported.uptime, state.reported.temperature, state.reported.humidity, state.reported.message from shadowevents"
+    client = boto3.client('athena')
+    
+    response = client.start_query_execution(
+        QueryString=query,
+        QueryExecutionContext={
+            'Database': DATABASE
+        },
+        ResultConfiguration={
+            'OutputLocation': output,
+        }
+    )
+    print(response)
+    return response
