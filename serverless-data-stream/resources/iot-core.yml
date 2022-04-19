@@ -10,7 +10,7 @@ Resources:
               RoleArn: !GetAtt KinesisRuleRole.Arn
         RuleDisabled: false
         Sql: !Sub
-          SELECT state.reported.uptime, state.reported.temperature, state.reported.humidity, state.reported.message, topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'
+          SELECT * topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'
 
   KinesisRuleRole:
     Type: AWS::IAM::Role
