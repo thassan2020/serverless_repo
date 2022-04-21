@@ -165,7 +165,7 @@
     "IoTCoreRuleSendingToKinesis": {
       "Type": "AWS::IoT::TopicRule",
       "Properties": {
-        "RuleName": "iot_serverless_test_send_to_kinesis_rule_3",
+        "RuleName": "iot_serverless_test_send_to_kinesis_rule_4",
         "TopicRulePayload": {
           "Actions": [
             {
@@ -184,7 +184,7 @@
           ],
           "RuleDisabled": false,
           "Sql": {
-            "Fn::Sub": "SELECT * topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
+            "Fn::Sub": "SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
           }
         }
       }

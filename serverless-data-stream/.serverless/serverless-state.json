@@ -177,7 +177,7 @@
           "IoTCoreRuleSendingToKinesis": {
             "Type": "AWS::IoT::TopicRule",
             "Properties": {
-              "RuleName": "iot_serverless_test_send_to_kinesis_rule_3",
+              "RuleName": "iot_serverless_test_send_to_kinesis_rule_4",
               "TopicRulePayload": {
                 "Actions": [
                   {
@@ -196,7 +196,7 @@
                 ],
                 "RuleDisabled": false,
                 "Sql": {
-                  "Fn::Sub": "SELECT * topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
+                  "Fn::Sub": "SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
                 }
               }
             }
@@ -442,7 +442,7 @@
         "IoTCoreRuleSendingToKinesis": {
           "Type": "AWS::IoT::TopicRule",
           "Properties": {
-            "RuleName": "iot_serverless_test_send_to_kinesis_rule_3",
+            "RuleName": "iot_serverless_test_send_to_kinesis_rule_4",
             "TopicRulePayload": {
               "Actions": [
                 {
@@ -461,7 +461,7 @@
               ],
               "RuleDisabled": false,
               "Sql": {
-                "Fn::Sub": "SELECT * topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
+                "Fn::Sub": "SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'"
               }
             }
           }
@@ -539,7 +539,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/iot-serverless-tarek-7/test/1650553163007-2022-04-21T14:59:23.007Z",
+    "artifactDirectoryName": "serverless/iot-serverless-tarek-7/test/1650553541087-2022-04-21T15:05:41.087Z",
     "artifact": ""
   }
 }
