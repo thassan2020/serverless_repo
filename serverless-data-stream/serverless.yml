@@ -16,11 +16,6 @@ iamRoleStatements:
     Action:
       - sts:AssumeRole
 
-functions:
-  transform:
-    handler: handler.transform
-    name: ${self:service}-${self:custom.stage}-data-transform-lambda
-    timeout: 60
 
 #    Define function environment variables here
 #    environment:
