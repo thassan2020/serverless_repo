@@ -1,18 +1,14 @@
-'use strict';
-
-module.exports.transform = async (event) => {
-  console.log(JSON.stringify(event));
-  let records = [];
-  for(let i = 0; i<event.records.length; i++) {
-      let payload = new Buffer(event.records[i].data, 'base64').toString('ascii');
-      console.log(`PAYLOAD: ${ JSON.stringify({payload}) }`)
-      payload = JSON.parse(payload);
-      payload.decoded = true;
-      records.push({
-        recordId: event.records[i].recordId,
-        result: 'Ok',
-        data: Buffer.from(JSON.stringify(payload)).toString('base64')});
-  }
-  console.log(`Return: ${ JSON.stringify({records}) }`)
-  return Promise.resolve({records});
-};
+import json
+def lambda_handler(event, context):
+    import boto3
+    client = boto3.client('iot')
+    #Pass iteratively the list of clientids and the out put should be key value pair of clientid and device
+    response = client.describe_thing(thingName='Mythingshadow1')
+    print(response)
+    print("Thing1 response")
+    print(response['attributes'])
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
