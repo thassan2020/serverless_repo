@@ -34,7 +34,20 @@ Resources:
       Roles:
         - !Ref KinesisDeliveryRole
 
-
+  KinesisInvokeLambdaPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ${self:service}-${self:custom.stage}-kinesis-invoke-lambda-policy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'lambda:InvokeFunction'
+            Resource: 
+              - !GetAtt TransformLambdaFunction.Arn
+      Roles:
+        - !Ref KinesisDeliveryRole
+        
   KinesisDeliveryStream:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
@@ -47,4 +60,11 @@ Resources:
         CompressionFormat: UNCOMPRESSED
         Prefix: firehose/
         RoleARN: !GetAtt KinesisDeliveryRole.Arn
+        ProcessingConfiguration:
+          Enabled: true
+          Processors:
+            - Parameters:
+                - ParameterName: LambdaArn
+                  ParameterValue: !GetAtt TransformLambdaFunction.Arn 
+              Type: Lambda
        

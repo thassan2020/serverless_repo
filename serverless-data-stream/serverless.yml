@@ -4,6 +4,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   serviceName: iot_serverless
   S3BucketNameForKinesisDestination: ${self:service}-${self:custom.stage}-kinesis-destination
+  S3BucketNameForKinesisRaw: ${self:service}-${self:custom.stage}-kinesis-raw
 
 provider:
   name: aws
@@ -16,6 +17,11 @@ iamRoleStatements:
     Action:
       - sts:AssumeRole
 
+functions:
+  transform:
+    handler: handler.transform
+    name: ${self:service}-${self:custom.stage}-data-transform-lambda
+    timeout: 60
 
 #    Define function environment variables here
 #    environment:
