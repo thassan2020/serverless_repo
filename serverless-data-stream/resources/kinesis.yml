@@ -54,6 +54,13 @@ Resources:
       DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
       ExtendedS3DestinationConfiguration:
         S3BackupMode: Enabled
+        S3BackupConfiguration: 
+          BucketARN: 
+            REF: "MyBackupBucket"
+           BufferingHints: 
+               IntervalInSeconds: "60"
+               SizeInMBs: "50"
+          RoleARN: !GetAtt KinesisDeliveryRole.Arn
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
         BufferingHints:
           IntervalInSeconds: 60
