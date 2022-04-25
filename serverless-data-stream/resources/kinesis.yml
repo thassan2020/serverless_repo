@@ -67,6 +67,4 @@ Resources:
                 - ParameterName: LambdaArn
                   ParameterValue: !GetAtt TransformLambdaFunction.Arn 
               Type: Lambda
-  
-        
-       
+
