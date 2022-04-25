@@ -68,10 +68,10 @@ Resources:
                   ParameterValue: !GetAtt TransformLambdaFunction.Arn 
               Type: Lambda
 
-KinesisDeliveryStream:
+  KinesisDeliveryStreamRaw:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
-      DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
+      DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream-raw
       ExtendedS3DestinationConfiguration:
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
         BufferingHints:

@@ -6,7 +6,7 @@ Resources:
       VersioningConfiguration:
         Status: Enabled
  
- S3BucketForKinesisRaw:
+  S3BucketForKinesisRaw:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:custom.S3BucketNameForKinesisRaw}
