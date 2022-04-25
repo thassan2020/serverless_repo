@@ -2,7 +2,7 @@ Resources:
   IoTCoreRuleSendingToKinesis:
     Type: AWS::IoT::TopicRule
     Properties:
-      RuleName: ${self:custom.serviceName}_${self:custom.stage}_send_to_kinesis_rule_6
+      RuleName: ${self:custom.serviceName}_${self:custom.stage}_send_to_kinesis_rule_9
       TopicRulePayload:
         Actions:
           - Firehose:
@@ -10,7 +10,7 @@ Resources:
               RoleArn: !GetAtt KinesisRuleRole.Arn
         RuleDisabled: false
         Sql: !Sub
-          SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'
+          SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+'        
 
   KinesisRuleRole:
     Type: AWS::IAM::Role
@@ -30,3 +30,4 @@ Resources:
                 Resource:
                   - !GetAtt KinesisDeliveryStream.Arn
           PolicyName: ${self:service}_${self:custom.stage}_sending_to_kinesis_policy
+

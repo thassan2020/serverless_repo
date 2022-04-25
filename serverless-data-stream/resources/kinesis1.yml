@@ -37,11 +37,11 @@ Resources:
   KinesisDeliveryStream1:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
-      DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
+      DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream1
       ExtendedS3DestinationConfiguration:
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
         BufferingHints:
-          IntervalInSeconds: 60
+          IntervalInSeconds: 120
           SizeInMBs: 3
         CompressionFormat: UNCOMPRESSED
         Prefix: firehose/

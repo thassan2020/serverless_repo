@@ -55,7 +55,7 @@ Resources:
       ExtendedS3DestinationConfiguration:
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
         BufferingHints:
-          IntervalInSeconds: 60
+          IntervalInSeconds: 120
           SizeInMBs: 3
         CompressionFormat: UNCOMPRESSED
         Prefix: firehose/
