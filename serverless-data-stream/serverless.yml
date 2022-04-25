@@ -30,6 +30,5 @@ functions:
 resources:
   - ${file(resources/s3-bucket.yml)}
   - ${file(resources/kinesis.yml)}
-  - ${file(resources/kinesis1.yml)}
   - ${file(resources/iot-core.yml)}
-  - ${file(resources/iot-core1.yml)}
+

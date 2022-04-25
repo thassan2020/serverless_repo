@@ -53,6 +53,7 @@ Resources:
     Properties:
       DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
       ExtendedS3DestinationConfiguration:
+        S3BackupMode: Enabled
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
         BufferingHints:
           IntervalInSeconds: 60
