@@ -1,4 +1,4 @@
-service: iot-serverless-tarek-18
+service: iot-serverless-tarek-23
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -31,4 +31,3 @@ resources:
   - ${file(resources/s3-bucket.yml)}
   - ${file(resources/kinesis.yml)}
   - ${file(resources/iot-core.yml)}
-  - ${file(resources/kinesis1.yml)}

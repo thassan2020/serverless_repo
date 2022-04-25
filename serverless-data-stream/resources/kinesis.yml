@@ -47,7 +47,7 @@ Resources:
               - !GetAtt TransformLambdaFunction.Arn
       Roles:
         - !Ref KinesisDeliveryRole
-        
+
   KinesisDeliveryStream:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
@@ -55,7 +55,7 @@ Resources:
       ExtendedS3DestinationConfiguration:
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
         BufferingHints:
-          IntervalInSeconds: 120
+          IntervalInSeconds: 60
           SizeInMBs: 3
         CompressionFormat: UNCOMPRESSED
         Prefix: firehose/
@@ -67,7 +67,6 @@ Resources:
                 - ParameterName: LambdaArn
                   ParameterValue: !GetAtt TransformLambdaFunction.Arn 
               Type: Lambda
-
   
         
        
