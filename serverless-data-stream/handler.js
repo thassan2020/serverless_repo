@@ -1,3 +1,4 @@
+import json
 def lambda_handler(event, context):
     import boto3
     client = boto3.client('iot')
