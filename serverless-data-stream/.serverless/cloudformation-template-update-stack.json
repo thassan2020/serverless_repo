@@ -74,84 +74,7 @@
     "TransformLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/iot-serverless-tarek-32-test-data-transform-lambda"
-      }
-    },
-    "IamRoleLambdaExecution": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ]
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "Policies": [
-          {
-            "PolicyName": {
-              "Fn::Join": [
-                "-",
-                [
-                  "iot-serverless-tarek-32",
-                  "test",
-                  "lambda"
-                ]
-              ]
-            },
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:CreateLogStream",
-                    "logs:CreateLogGroup"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/iot-serverless-tarek-32-test*:*"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:PutLogEvents"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/iot-serverless-tarek-32-test*:*:*"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ],
-        "Path": "/",
-        "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "iot-serverless-tarek-32",
-              "test",
-              {
-                "Ref": "AWS::Region"
-              },
-              "lambdaRole"
-            ]
-          ]
-        }
+        "LogGroupName": "/aws/lambda/iot-serverless-tarek-50-test-data-transform-lambda"
       }
     },
     "TransformLambdaFunction": {
@@ -161,38 +84,39 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/iot-serverless-tarek-32/test/1651002420345-2022-04-26T19:47:00.345Z/iot-serverless-tarek-32.zip"
+          "S3Key": "serverless/iot-serverless-tarek-50/test/1651009561407-2022-04-26T21:46:01.407Z/iot-serverless-tarek-50.zip"
         },
         "Handler": "handler.transform",
         "Runtime": "python3.9",
-        "FunctionName": "iot-serverless-tarek-32-test-data-transform-lambda",
+        "FunctionName": "iot-serverless-tarek-50-test-data-transform-lambda",
         "MemorySize": 1024,
-        "Timeout": 60,
+        "Timeout": 120,
         "Role": {
           "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
+            "LambdaIoTRole",
             "Arn"
           ]
         }
       },
       "DependsOn": [
-        "TransformLogGroup"
+        "TransformLogGroup",
+        "LambdaIoTRole"
       ]
     },
-    "TransformLambdaVersionTqKhBEMcsmQxAvASX36SKuviIRQ7JUPF7EGIwIy9190": {
+    "TransformLambdaVersionwlWr2XDBsCY3Sh8NV4XEloz5FJGrAinQ9JUHePOtYpg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TransformLambdaFunction"
         },
-        "CodeSha256": "SJnJnA10dQgbNaKCNNJqVnMcpCXQIOtV/SEz/53tW/s="
+        "CodeSha256": "vVNNpDb8r3QIbU6/DAojPAmDYZ1iWmekpxdpbVcT0C4="
       }
     },
     "S3BucketForKinesisDestination": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "iot-serverless-tarek-32-test-kinesis-destination",
+        "BucketName": "iot-serverless-tarek-50-test-kinesis-destination",
         "VersioningConfiguration": {
           "Status": "Enabled"
         }
@@ -201,7 +125,7 @@
     "S3BucketForKinesisRaw": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "iot-serverless-tarek-32-test-kinesis-raw",
+        "BucketName": "iot-serverless-tarek-50-test-kinesis-raw",
         "VersioningConfiguration": {
           "Status": "Enabled"
         }
@@ -210,7 +134,7 @@
     "KinesisDeliveryRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
-        "RoleName": "iot-serverless-tarek-32-test-kinesis-delivery-role",
+        "RoleName": "iot-serverless-tarek-50-test-kinesis-delivery-role",
         "AssumeRolePolicyDocument": {
           "Statement": [
             {
@@ -235,7 +159,7 @@
     "KinesisDeliveryToS3Policy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "iot-serverless-tarek-32-test-kinesis-delivery-to-s3-policy",
+        "PolicyName": "iot-serverless-tarek-50-test-kinesis-delivery-to-s3-policy",
         "PolicyDocument": {
           "Statement": [
             {
@@ -250,16 +174,16 @@
               ],
               "Resource": [
                 {
-                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-destination"
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-destination"
                 },
                 {
-                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-destination*"
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-destination*"
                 },
                 {
-                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-raw"
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-raw"
                 },
                 {
-                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-raw*"
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-raw*"
                 }
               ]
             }
@@ -275,7 +199,7 @@
     "KinesisInvokeLambdaPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "iot-serverless-tarek-32-test-kinesis-invoke-lambda-policy",
+        "PolicyName": "iot-serverless-tarek-50-test-kinesis-invoke-lambda-policy",
         "PolicyDocument": {
           "Statement": [
             {
@@ -304,10 +228,10 @@
     "KinesisDeliveryStream": {
       "Type": "AWS::KinesisFirehose::DeliveryStream",
       "Properties": {
-        "DeliveryStreamName": "iot-serverless-tarek-32-test-kinesis-delivery-stream",
+        "DeliveryStreamName": "iot-serverless-tarek-50-test-kinesis-delivery-stream",
         "ExtendedS3DestinationConfiguration": {
           "BucketARN": {
-            "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-destination"
+            "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-destination"
           },
           "BufferingHints": {
             "IntervalInSeconds": 60,
@@ -316,7 +240,7 @@
           "S3BackupMode": "Enabled",
           "S3BackupConfiguration": {
             "BucketARN": {
-              "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-32-test-kinesis-raw"
+              "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-50-test-kinesis-raw"
             },
             "RoleARN": {
               "Fn::GetAtt": [
@@ -355,10 +279,57 @@
         }
       }
     },
+    "LambdaIoTRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "iot-serverless-tarek-50-test-Lambda-IoT-role",
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Sid": "",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        }
+      }
+    },
+    "LambdaIoTInvokePolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "iot-serverless-tarek-50-test-Lambda-invoke-IOT-policy",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "iot:DescribeThing"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaIoTRole"
+          }
+        ]
+      }
+    },
     "IoTCoreRuleSendingToKinesis": {
       "Type": "AWS::IoT::TopicRule",
       "Properties": {
-        "RuleName": "iot_serverless_test_send_to_kinesis_rule_32",
+        "RuleName": "iot_serverless_test_send_to_kinesis_rule_51",
         "TopicRulePayload": {
           "Actions": [
             {
@@ -385,7 +356,7 @@
     "KinesisRuleRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
-        "RoleName": "iot-serverless-tarek-32_test_sending_to_kinesis_role",
+        "RoleName": "iot-serverless-tarek-50_test_sending_to_kinesis_role",
         "AssumeRolePolicyDocument": {
           "Statement": [
             {
@@ -415,7 +386,7 @@
                 }
               ]
             },
-            "PolicyName": "iot-serverless-tarek-32_test_sending_to_kinesis_policy"
+            "PolicyName": "iot-serverless-tarek-50_test_sending_to_kinesis_policy"
           }
         ]
       }
@@ -427,16 +398,16 @@
         "Ref": "ServerlessDeploymentBucket"
       },
       "Export": {
-        "Name": "sls-iot-serverless-tarek-32-test-ServerlessDeploymentBucketName"
+        "Name": "sls-iot-serverless-tarek-50-test-ServerlessDeploymentBucketName"
       }
     },
     "TransformLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TransformLambdaVersionTqKhBEMcsmQxAvASX36SKuviIRQ7JUPF7EGIwIy9190"
+        "Ref": "TransformLambdaVersionwlWr2XDBsCY3Sh8NV4XEloz5FJGrAinQ9JUHePOtYpg"
       },
       "Export": {
-        "Name": "sls-iot-serverless-tarek-32-test-TransformLambdaFunctionQualifiedArn"
+        "Name": "sls-iot-serverless-tarek-50-test-TransformLambdaFunctionQualifiedArn"
       }
     },
     "S3BucketForKinesisDestinationName": {

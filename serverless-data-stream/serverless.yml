@@ -1,4 +1,4 @@
-service: iot-serverless-tarek-32
+service: iot-serverless-tarek-50
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -11,12 +11,6 @@ provider:
   runtime: python3.9
   stage: dev
   region: us-east-1
-  iam:
-    role:
-        -Effect: Allow
-        Action:
-          -iot:DescribeThing
-        Resource: '*'
 
 
 iamRoleStatements:
@@ -29,7 +23,8 @@ functions:
   transform:
     handler: handler.transform
     name: ${self:service}-${self:custom.stage}-data-transform-lambda
-    timeout: 60
+    timeout: 120
+    role: LambdaIoTRole
 
 #    Define function environment variables here
 #    environment:

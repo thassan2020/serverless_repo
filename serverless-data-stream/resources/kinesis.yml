@@ -74,3 +74,33 @@ Resources:
               - ParameterName: LambdaArn
                 ParameterValue: !GetAtt TransformLambdaFunction.Arn 
             Type: Lambda
+
+  LambdaIoTRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ${self:service}-${self:custom.stage}-Lambda-IoT-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+            
+  LambdaIoTInvokePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ${self:service}-${self:custom.stage}-Lambda-invoke-IOT-policy
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:PutObject'
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - 'iot:DescribeThing'
+            Resource: "*"
+
+      Roles:
+        - !Ref LambdaIoTRole
