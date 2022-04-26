@@ -173,7 +173,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/iot-serverless-tarek-30/test/1650926060392-2022-04-25T22:34:20.392Z/iot-serverless-tarek-30.zip"
+                "S3Key": "serverless/iot-serverless-tarek-30/test/1650987998425-2022-04-26T15:46:38.425Z/iot-serverless-tarek-30.zip"
               },
               "Handler": "handler.transform",
               "Runtime": "nodejs12.x",
@@ -191,14 +191,14 @@
               "TransformLogGroup"
             ]
           },
-          "TransformLambdaVersiondPIbFwv7RdiiHtWzB1SkZgzGQB7BJx3LZ1pBLkP8w": {
+          "TransformLambdaVersionWDFCMYCHC9RMUkktYuhRhLpESnRFekZcKAzeWhtOM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TransformLambdaFunction"
               },
-              "CodeSha256": "35E6KwiLvh/sngf7tAt5UHPlVkR9foC3FCCgP7K7Tjo="
+              "CodeSha256": "H1PomdHLqvpuDpx9PrR+q2+KKfsfxaFIW6lOOdzufRw="
             }
           },
           "S3BucketForKinesisDestination": {
@@ -266,6 +266,12 @@
                       },
                       {
                         "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination*"
+                      },
+                      {
+                        "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw"
+                      },
+                      {
+                        "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw*"
                       }
                     ]
                   }
@@ -312,10 +318,17 @@
             "Properties": {
               "DeliveryStreamName": "iot-serverless-tarek-30-test-kinesis-delivery-stream",
               "ExtendedS3DestinationConfiguration": {
+                "BucketARN": {
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination"
+                },
+                "BufferingHints": {
+                  "IntervalInSeconds": 60,
+                  "SizeInMBs": 3
+                },
                 "S3BackupMode": "Enabled",
                 "S3BackupConfiguration": {
                   "BucketARN": {
-                    "REF": "MyBackupBucket"
+                    "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw"
                   },
                   "RoleARN": {
                     "Fn::GetAtt": [
@@ -323,13 +336,6 @@
                       "Arn"
                     ]
                   }
-                },
-                "BucketARN": {
-                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination"
-                },
-                "BufferingHints": {
-                  "IntervalInSeconds": 60,
-                  "SizeInMBs": 3
                 },
                 "CompressionFormat": "UNCOMPRESSED",
                 "Prefix": "firehose/",
@@ -439,7 +445,7 @@
           "TransformLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TransformLambdaVersiondPIbFwv7RdiiHtWzB1SkZgzGQB7BJx3LZ1pBLkP8w"
+              "Ref": "TransformLambdaVersionWDFCMYCHC9RMUkktYuhRhLpESnRFekZcKAzeWhtOM"
             },
             "Export": {
               "Name": "sls-iot-serverless-tarek-30-test-TransformLambdaFunctionQualifiedArn"
@@ -558,7 +564,7 @@
         "memory": 1024,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "TransformLambdaVersiondPIbFwv7RdiiHtWzB1SkZgzGQB7BJx3LZ1pBLkP8w"
+        "versionLogicalId": "TransformLambdaVersionWDFCMYCHC9RMUkktYuhRhLpESnRFekZcKAzeWhtOM"
       }
     },
     "resources": {
@@ -628,6 +634,12 @@
                     },
                     {
                       "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination*"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw*"
                     }
                   ]
                 }
@@ -674,10 +686,17 @@
           "Properties": {
             "DeliveryStreamName": "iot-serverless-tarek-30-test-kinesis-delivery-stream",
             "ExtendedS3DestinationConfiguration": {
+              "BucketARN": {
+                "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination"
+              },
+              "BufferingHints": {
+                "IntervalInSeconds": 60,
+                "SizeInMBs": 3
+              },
               "S3BackupMode": "Enabled",
               "S3BackupConfiguration": {
                 "BucketARN": {
-                  "REF": "MyBackupBucket"
+                  "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-raw"
                 },
                 "RoleARN": {
                   "Fn::GetAtt": [
@@ -685,13 +704,6 @@
                     "Arn"
                   ]
                 }
-              },
-              "BucketARN": {
-                "Fn::Sub": "arn:aws:s3:::iot-serverless-tarek-30-test-kinesis-destination"
-              },
-              "BufferingHints": {
-                "IntervalInSeconds": 60,
-                "SizeInMBs": 3
               },
               "CompressionFormat": "UNCOMPRESSED",
               "Prefix": "firehose/",
@@ -832,7 +844,7 @@
     "artifact": "C:\\Users\\Tarek Hassan\\Documents\\Serverless\\serverless_repo\\serverless-data-stream\\.serverless\\iot-serverless-tarek-30.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/iot-serverless-tarek-30/test/1650926060392-2022-04-25T22:34:20.392Z",
+    "artifactDirectoryName": "serverless/iot-serverless-tarek-30/test/1650987998425-2022-04-26T15:46:38.425Z",
     "artifact": "iot-serverless-tarek-30.zip"
   }
 }

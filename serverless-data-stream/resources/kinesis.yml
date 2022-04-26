@@ -31,6 +31,9 @@ Resources:
             Resource:
               - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
               - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}*'
+              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
+              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}*'
+
       Roles:
         - !Ref KinesisDeliveryRole
 
@@ -53,26 +56,21 @@ Resources:
     Properties:
       DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
       ExtendedS3DestinationConfiguration:
-        S3BackupMode: Enabled
-        S3BackupConfiguration: 
-          BucketARN: 
-            REF: "MyBackupBucket"
-           BufferingHints: 
-               IntervalInSeconds: "60"
-               SizeInMBs: "50"
-          RoleARN: !GetAtt KinesisDeliveryRole.Arn
         BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
         BufferingHints:
           IntervalInSeconds: 60
           SizeInMBs: 3
+        S3BackupMode: Enabled 
+        S3BackupConfiguration:
+          BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
+          RoleARN: !GetAtt KinesisDeliveryRole.Arn
         CompressionFormat: UNCOMPRESSED
         Prefix: firehose/
         RoleARN: !GetAtt KinesisDeliveryRole.Arn
         ProcessingConfiguration:
           Enabled: true
           Processors:
-            - Parameters:
-                - ParameterName: LambdaArn
-                  ParameterValue: !GetAtt TransformLambdaFunction.Arn 
-              Type: Lambda
-
+          - Parameters:
+              - ParameterName: LambdaArn
+                ParameterValue: !GetAtt TransformLambdaFunction.Arn 
+            Type: Lambda

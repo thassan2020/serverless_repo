@@ -5,18 +5,19 @@ Resources:
       BucketName: ${self:custom.S3BucketNameForKinesisDestination}
       VersioningConfiguration:
         Status: Enabled
- 
+
   S3BucketForKinesisRaw:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:custom.S3BucketNameForKinesisRaw}
       VersioningConfiguration:
         Status: Enabled
-    
+  
 Outputs:
   S3BucketForKinesisDestinationName:
     Value:
       Ref: S3BucketForKinesisDestination
+
   S3BucketForKinesisRawName:
     Value:
       Ref: S3BucketForKinesisRaw
