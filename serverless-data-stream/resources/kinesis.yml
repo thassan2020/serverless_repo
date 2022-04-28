@@ -87,20 +87,36 @@ Resources:
               Service: lambda.amazonaws.com
             Action: 'sts:AssumeRole'
             
-  LambdaIoTInvokePolicy:
+  LambdaInvokeIOTPolicy:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: ${self:service}-${self:custom.stage}-Lambda-invoke-IOT-policy
+      PolicyName: LambdaInvokeIOTPolicy 
       PolicyDocument:
         Statement:
-          - Effect: Allow
-            Action:
-              - 's3:PutObject'
-            Resource: "*"
-          - Effect: Allow
-            Action:
+            - Effect: Allow
+              Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              Resource:
+                    - 'Fn::Join':
+                      - ':'
+                      -
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'log-group:/aws/lambda/*:*:*'
+            - Effect: Allow
+              Action:
               - 'iot:DescribeThing'
-            Resource: "*"
-
-      Roles:
+              Resource: "*"
+            - Effect: "Allow"
+              Action:
+              - "s3:PutObject"
+              Resource: '*'
+              #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
+              #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}*'
+              #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisBackup}'
+              #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisBackup}*'
+      Roles: 
         - !Ref LambdaIoTRole

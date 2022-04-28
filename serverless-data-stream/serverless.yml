@@ -1,4 +1,4 @@
-service: iot-serverless-tarek-50
+service: iot-serverless-tarek-70
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -23,7 +23,7 @@ functions:
   transform:
     handler: handler.transform
     name: ${self:service}-${self:custom.stage}-data-transform-lambda
-    timeout: 120
+    timeout: 60
     role: LambdaIoTRole
 
 #    Define function environment variables here
