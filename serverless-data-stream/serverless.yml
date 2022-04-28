@@ -8,7 +8,7 @@ custom:
 
 provider:
   name: aws
-  runtime: java11
+  runtime: nodejs12.x
   stage: dev
   region: us-east-1
 

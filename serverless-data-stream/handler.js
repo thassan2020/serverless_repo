@@ -1,6 +1,6 @@
 'use strict'
-const AWS = requre('aws=-sdk');
-var iot = new AWS.IOT();
+const AWS = require('aws-sdk');
+var iot = new AWS.iot();
 
 async function getThingAttributes(thingName) {
     try {
