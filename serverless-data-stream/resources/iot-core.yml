@@ -2,7 +2,7 @@ Resources:
   IoTCoreRuleSendingToKinesis:
     Type: AWS::IoT::TopicRule
     Properties:
-      RuleName: ${self:custom.serviceName}_${self:custom.stage}_send_to_kinesis_rule_71
+      RuleName: ${self:custom.serviceName}_${self:custom.stage}_send_to_kinesis_rule_81
       TopicRulePayload:
         Actions:
           - Firehose:
