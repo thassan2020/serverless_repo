@@ -24,11 +24,13 @@ payload = JSON.parse([payload]);
 
 const clientid = payload['clientid']
 console.log(clientid)
-const attributes = await getthingattriubtues(clientid)
+const attributes = await getThingAttributes(clientid)
 console.log.attributes
-payload.decoded; 0 ;truel
-records.push({recordif: event.records.recordID}),
-result;'OK',
-DataL;buffer.from(json,stringify(payload)).tostring('base64')
-return promise.resolve({records});
-};
+payload.decoded = true;
+        records.push({
+            recordId: event.records[i].recordId,
+            result: 'Ok',
+            data: Buffer.from(JSON.stringify(payload)).toString('base64')
+        });
+   return Promise.resolve({ records });
+}
