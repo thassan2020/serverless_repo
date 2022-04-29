@@ -96,7 +96,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/iot-serverless-tarek-201/test/1651180803089-2022-04-28T21:20:03.089Z/iot-serverless-tarek-201.zip"
+                "S3Key": "serverless/iot-serverless-tarek-201/test/1651241364500-2022-04-29T14:09:24.500Z/iot-serverless-tarek-201.zip"
               },
               "Handler": "handler.transform",
               "Runtime": "nodejs12.x",
@@ -115,14 +115,14 @@
               "LambdaIoTRole"
             ]
           },
-          "TransformLambdaVersion8f8aiYKUrjSMUKgn3RNzbjIGrTh5AlqpaSdiDsxuhLo": {
+          "TransformLambdaVersion99CQu64HY90caFqQ59Kte1Kz4q6Ay2Y6llrv9nMPs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TransformLambdaFunction"
               },
-              "CodeSha256": "3ztDk1+m+7RLG6DxVLg22QUXkFE1QG1nfhVOenoVYic="
+              "CodeSha256": "fVAWSPa9I3rgf2caygxjr89/oK+Kpo6xbde2F0TYcq0="
             }
           },
           "S3BucketForKinesisDestination": {
@@ -441,7 +441,7 @@
           "TransformLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TransformLambdaVersion8f8aiYKUrjSMUKgn3RNzbjIGrTh5AlqpaSdiDsxuhLo"
+              "Ref": "TransformLambdaVersion99CQu64HY90caFqQ59Kte1Kz4q6Ay2Y6llrv9nMPs"
             },
             "Export": {
               "Name": "sls-iot-serverless-tarek-201-test-TransformLambdaFunctionQualifiedArn"
@@ -561,7 +561,7 @@
         "memory": 1024,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "TransformLambdaVersion8f8aiYKUrjSMUKgn3RNzbjIGrTh5AlqpaSdiDsxuhLo"
+        "versionLogicalId": "TransformLambdaVersion99CQu64HY90caFqQ59Kte1Kz4q6Ay2Y6llrv9nMPs"
       }
     },
     "resources": {
@@ -913,7 +913,7 @@
     "artifact": "C:\\Users\\Tarek Hassan\\Documents\\Serverless\\serverless_repo\\serverless-data-stream\\.serverless\\iot-serverless-tarek-201.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/iot-serverless-tarek-201/test/1651180803089-2022-04-28T21:20:03.089Z",
+    "artifactDirectoryName": "serverless/iot-serverless-tarek-201/test/1651241364500-2022-04-29T14:09:24.500Z",
     "artifact": "iot-serverless-tarek-201.zip"
   }
 }
