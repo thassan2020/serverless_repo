@@ -20,14 +20,13 @@ module.exports.transform = async(event) => {
 let records = [];
 console.log("TESTING THIS")
 //console.log(event.records.data)
-//console.log("the thing above is the event payload")
 for (var data of event.records) {
     //console.log(data.data)
     var something = data.data
     //let payload = new Buffer(event.records.data, 'base64').tostring('asci');
     var payload = Buffer.from(something, 'base64').toString();
     payload = JSON.parse([payload]);
-    
+    //payload = SELECT topic(3) as clientid FROM '$aws/things/+/shadow/name/+/update/+
     const clientid = payload['clientid']
     //console.log(clientid)
     const attributes = await getThingAttributes(clientid)

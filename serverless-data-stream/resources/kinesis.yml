@@ -64,7 +64,7 @@ Resources:
         S3BackupConfiguration:
           BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
           RoleARN: !GetAtt KinesisDeliveryRole.Arn
-        CompressionFormat: UNCOMPRESSED
+        CompressionFormat: GZIP
         Prefix: firehose/
         RoleARN: !GetAtt KinesisDeliveryRole.Arn
         ProcessingConfiguration:
