@@ -84,7 +84,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/iot-serverless-tarek-300/test/1651592698023-2022-05-03T15:44:58.023Z/iot-serverless-tarek-300.zip"
+          "S3Key": "serverless/iot-serverless-tarek-300/test/1651787230694-2022-05-05T21:47:10.694Z/iot-serverless-tarek-300.zip"
         },
         "Handler": "handler.transform",
         "Runtime": "nodejs12.x",
@@ -103,14 +103,14 @@
         "LambdaIoTRole"
       ]
     },
-    "TransformLambdaVersionvJzLMCnBgV1bb23Nx4TeX0i4YzUM8hstL6vSBiCAihY": {
+    "TransformLambdaVersion1lEAsnLnt8KmJ1MYtQ7t27T5Z3SVcXOTwhLMs70Aes": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TransformLambdaFunction"
         },
-        "CodeSha256": "cmsvHyln0LiFA3ZXENRXpgU6HVnnSN5B24FLwA12h68="
+        "CodeSha256": "0BMyE9uAAke1uIzbNVPtaYZ3Ej6SPWy430n6SpFbvl4="
       }
     },
     "S3BucketForKinesisDestination": {
@@ -429,7 +429,7 @@
     "TransformLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TransformLambdaVersionvJzLMCnBgV1bb23Nx4TeX0i4YzUM8hstL6vSBiCAihY"
+        "Ref": "TransformLambdaVersion1lEAsnLnt8KmJ1MYtQ7t27T5Z3SVcXOTwhLMs70Aes"
       },
       "Export": {
         "Name": "sls-iot-serverless-tarek-300-test-TransformLambdaFunctionQualifiedArn"
