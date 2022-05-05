@@ -1,16 +1,16 @@
-service: iot-serverless-tarek-300
+service: iot-serverless-tarek-300 #change to custom name
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   serviceName: iot_serverless
-  S3BucketNameForKinesisDestination: ${self:service}-${self:custom.stage}-kinesis-destination
-  S3BucketNameForKinesisRaw: ${self:service}-${self:custom.stage}-kinesis-raw
+  S3BucketNameForKinesisDestination: ${self:service}-${self:custom.stage}-kinesis-destination #creates s3 bucket resource, customize the name
+  S3BucketNameForKinesisRaw: ${self:service}-${self:custom.stage}-kinesis-raw #creates s3 bucket resource, customize the name
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
-  region: us-east-1
+  region: us-east-1 #make sure this is your correct region
 
 
 iamRoleStatements:
@@ -23,7 +23,7 @@ functions:
   transform:
     handler: handler.transform
     name: ${self:service}-${self:custom.stage}-data-transform-lambda
-    timeout: 60
+    timeout: 60 #customize your own lambda timeout
     role: LambdaIoTRole
 
 #    Define function environment variables here
@@ -31,7 +31,7 @@ functions:
 #      variable2: value2
 
 resources:
-  - ${file(resources/s3-bucket.yml)}
+  - ${file(resources/s3-bucket.yml)} #builds all the resources
   - ${file(resources/kinesis.yml)}
   - ${file(resources/iot-core.yml)}
 

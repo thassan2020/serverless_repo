@@ -1,12 +1,12 @@
 Resources:
-  S3BucketForKinesisDestination:
+  S3BucketForKinesisDestination: #Create resource for custom s3 bucket that will have the processed data from the lambda function
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:custom.S3BucketNameForKinesisDestination}
       VersioningConfiguration:
         Status: Enabled
 
-  S3BucketForKinesisRaw:
+  S3BucketForKinesisRaw: #Create resource for s3 bucket that will have the raw and backup s3 bucket from the processed data bucket above 
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:custom.S3BucketNameForKinesisRaw}
@@ -14,10 +14,10 @@ Resources:
         Status: Enabled
   
 Outputs:
-  S3BucketForKinesisDestinationName:
+  S3BucketForKinesisDestinationName: #Sets the output for the defined processed bucket
     Value:
       Ref: S3BucketForKinesisDestination
 
-  S3BucketForKinesisRawName:
+  S3BucketForKinesisRawName: #Sets the outpute for the defined processed bucket
     Value:
       Ref: S3BucketForKinesisRaw

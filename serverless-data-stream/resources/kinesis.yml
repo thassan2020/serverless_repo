@@ -29,15 +29,15 @@ Resources:
               - 's3:ListBucketMultipartUploads'
               - 's3:PutObject'
             Resource:
-              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
+              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}' #Change to your customize s3 bucket that processes the lambda function
               - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}*'
-              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
+              - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}' #Change to your customize s3 bucket that will house the raw, backup data 
               - !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}*'
 
       Roles:
         - !Ref KinesisDeliveryRole
 
-  KinesisInvokeLambdaPolicy:
+  KinesisInvokeLambdaPolicy: #Creates a Lambda Policy in order to invoke the lambda function as part of Kinesis 
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: ${self:service}-${self:custom.stage}-kinesis-invoke-lambda-policy
@@ -56,13 +56,13 @@ Resources:
     Properties:
       DeliveryStreamName: ${self:service}-${self:custom.stage}-kinesis-delivery-stream
       ExtendedS3DestinationConfiguration:
-        BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
+        BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}' #customize to your bucket name)
         BufferingHints:
           IntervalInSeconds: 60
           SizeInMBs: 3
         S3BackupMode: Enabled 
         S3BackupConfiguration:
-          BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}'
+          BucketARN: !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisRaw}' #customize to your bucket name
           RoleARN: !GetAtt KinesisDeliveryRole.Arn
         CompressionFormat: GZIP
         Prefix: firehose/
@@ -75,7 +75,7 @@ Resources:
                 ParameterValue: !GetAtt TransformLambdaFunction.Arn 
             Type: Lambda
 
-  LambdaIoTRole:
+  LambdaIoTRole: #creates a lambda role to allow the lambda function to be invoke based on the defined lambda policy 
     Type: AWS::IAM::Role
     Properties:
       RoleName: ${self:service}-${self:custom.stage}-Lambda-IoT-role
@@ -87,7 +87,7 @@ Resources:
               Service: lambda.amazonaws.com
             Action: 'sts:AssumeRole'
             
-  LambdaInvokeIOTPolicy:
+  LambdaInvokeIOTPolicy: #Invokes the Lambda IOT Policy that is associated with the LambdaInvokeIOTPolicy 
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: LambdaInvokeIOTPolicy 
@@ -106,13 +106,13 @@ Resources:
                         - Ref: 'AWS::Region'
                         - Ref: 'AWS::AccountId'
                         - 'log-group:/aws/lambda/*:*:*'
-            - Effect: Allow
+            - Effect: Allow 
               Action:
-              - 'iot:DescribeThing'
+              - 'iot:DescribeThing' #invokes the Describe Thing API call for the lambda function 
               Resource: "*"
             - Effect: "Allow"
               Action:
-              - "s3:PutObject"
+              - "s3:PutObject" #action puts the output of the lambda function processed data to both the processed and raw bucket 
               Resource: '*'
               #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}'
               #- !Sub 'arn:aws:s3:::${self:custom.S3BucketNameForKinesisDestination}*'
